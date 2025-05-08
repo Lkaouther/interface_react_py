@@ -1,0 +1,22 @@
+
+.navigation{
+    width: 95vw;
+    border: solid green;
+    position: relative;
+    display: flex;
+    align-self: flex-start;
+   left: -2%;
+    
+}
+.btns{
+    border: solid red;
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+}
+.parametre img{
+    height: 37px;
+    width: 37px;
+}
+  
