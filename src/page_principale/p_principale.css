@@ -1,22 +1,53 @@
+body{
+  overflow-y:auto ;
+}
+.ecran{
+  width: 95vw;
+  position: relative;
+  left: -2%;
 
-.navigation{
-    width: 95vw;
-    border: solid green;
-    position: relative;
-    display: flex;
-    align-self: flex-start;
-   left: -2%;
-    
 }
-.btns{
-    border: solid red;
-    justify-self: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; 
-}
-.parametre img{
-    height: 37px;
-    width: 37px;
-}
+.navigation {
   
+  
+  display: flex;
+  
+  padding: 10px;
+  align-items: center; 
+  justify-content: space-between;
+  
+}
+.middlebtn {
+  display: flex;
+ position: absolute;
+  gap: 15px;
+  left: 350px;
+  
+}
+.parametre {
+  display: flex;
+  align-items: center;
+  
+  font-size: 1.5rem;
+  cursor: pointer;
+  
+}
+.text {
+  
+  z-index: -1;
+  
+  display: flex;
+  
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 6rem;
+  height: 300px;
+}
+
+.maincontainer{
+  padding: 10px;
+  height: 1000px;
+  background-color: #20202073;
+  border-radius: 80px;
+}

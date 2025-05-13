@@ -1,27 +1,39 @@
-import Background from "../component/background"
-import './p_principale.css'
-import parametre from '../assets/parametre.png'
-function Page_P() {
-    return(
-        <>
-        <Background></Background>
-        <div className="navigation">
-            <div className="iconNAT"></div>
-            <div className="btns"> 
-                <div className="btn">équipement</div>
-                <div className="btn">script</div>
-                <div className="btn">vulnerabilié</div>
-            </div>
-            <div className="parametre"><img src={parametre} alt="" /></div>
-        </div>
-        <div id="text">Bienvenue</div>
-        <div className="maincontainer">
+import Background from "../component/background";
+import "./p_principale.css";
+import nat from "../assets/logonat.svg";
+import DropdownM from "../component/dropdownM";
+import { AiOutlineSetting } from "react-icons/ai";
 
-        </div>
+function Page_P() {
+  return (
+    <>
+      <Background></Background>
+      <div className="ecran">
         
-        </>
-        
-        )
+        <nav className="navigation">
+          <div className="logo">
+            <img src={nat} alt="" />
+          </div>
+          <div className="middlebtn">
+            <DropdownM
+              name="equipement"
+              op={["routeur", "switch", "firewall"]}
+            />
+            <DropdownM name="scripts" op={["routeur", "switch", "firewall"]} />
+            <DropdownM
+              name="vulnérabilité"
+              op={["Bab Zeouar", "Oran", "Agence"]}
+            />
+          </div>
+          <div className="parametre">
+            <AiOutlineSetting />
+          </div>
+        </nav>
+        <div className="text">Bienvenue</div>
+        <div className="maincontainer"></div>
+      </div>
+    </>
+  );
 }
 
-export default Page_P
+export default Page_P;

@@ -1,6 +1,6 @@
 import Background from "../component/background";
 import "./login.css";
-//import Page_P from "../page_principale/p_principale";
+import Page_P from "../page_principale/p_principale";
 
 function Login() {
   return (
@@ -31,7 +31,7 @@ function Login() {
               </div>
             </div>
           </div>
-          <button type="submit" className="loginbtn">
+          <button type="submit" className="loginbtn" >
             Login
           </button>
         </div>
