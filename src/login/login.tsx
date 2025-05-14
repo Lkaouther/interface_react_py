@@ -1,12 +1,19 @@
 import Background from "../component/background";
 import "./login.css";
 import Page_P from "../page_principale/p_principale";
+import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+  const enter = (e: React.FormEvent) => {
+    e.preventDefault(); // empêche la soumission réelle du formulaire
+    navigate("/main"); // redirige vers Page_P
+  };
   return (
     <>
-      <Background></Background>
-      <form action="">
+      <Background/>
+      <form onSubmit={enter}>
         <div className="container">
           <header id="text1">Login</header>
           <div className="inputs">

@@ -18,11 +18,11 @@ function DropdownM(props: Props) {
       <div className="container_drop">
         <button
           className={`button_dropd ${isOpen ? "button_open" : ""}`}
-          onClick={toggleDropdown}
+          onMouseOver={toggleDropdown}
         >
           {props.name}
         </button>
-        {isOpen && <ul className="dropdown">{listop}</ul>}
+        {isOpen && <ul className="dropdown" onMouseLeave={toggleDropdown}>{listop}</ul>}
       </div>
     </>
   );
