@@ -11,15 +11,15 @@
 }
 
 .button_dropd:hover{
-    background: #202020da;
+    background: #202020;
     transform: scale(1.09);
 }
 .button_open{
-    background: #202020da;
+    background: #202020;
    transform: scale(1.09);
 }
 .button_open:active{
-    background: #202020da;
+    background: #202020;
    transform: scale(1);
 }
 
@@ -32,7 +32,7 @@
 
 .dropdown{
     
-    background: #202020da;
+    background: #202020;
     border-radius: 20px;
     list-style: none;
     display: flex;

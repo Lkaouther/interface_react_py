@@ -1,7 +1,6 @@
 import './App.css'
 import Login from './login/login'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DropdownM from './component/dropdownM'
 import Page_P from './page_principale/p_principale'
 
 

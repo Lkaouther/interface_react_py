@@ -1,7 +1,5 @@
-import Background from "../component/background";
+import Background from "../component/background/background";
 import "./login.css";
-import Page_P from "../page_principale/p_principale";
-import {Link} from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 
 function Login() {
