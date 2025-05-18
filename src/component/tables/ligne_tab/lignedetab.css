@@ -8,7 +8,6 @@
     font-size: 18px ;
     margin: 10px 30px;
     border-radius: 50px;
-  
    
  }
  
@@ -21,10 +20,47 @@
     transform: scale(1);
    
  }
-.ligne p{ 
-    font-size: 30px ;
-    margin-left: 20px;
+.ligne.modif:hover{ 
+    background: transparent;
+    transform: scale(1);
+    color: #AEAEAE;
+ }
+.ligne.modif p{ 
     width: 25%;
+ }
+
+ .suprim{ 
+    width: 15%;
+  border-radius: 34px;
+  border: none;
+  background: linear-gradient(180deg,#3B2F46,#9273AC);
+  font-size: 18px ;
+  color: #AEAEAE;
+  padding: 0.5rem;
+  cursor: pointer;
+ }
+ .suprim.title{ 
+   color: transparent;
+   background: transparent;
+ }
+.suprim:hover{ 
+    transform: scale(1.03);
+ }
+ .suprim:active{ 
+    transform: scale(1);
+ }
+.sans_icon{ 
+    display: flex;
+    width: 100%;
+    gap: 8%;
+   
+}
+.ligne p{ 
+    font-size: 20px ;
+    margin-left: 20px;
+    width: 20%;
+    text-align: center;
+ 
  }
 .entre_ligne{ 
    justify-self: center;

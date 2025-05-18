@@ -4,19 +4,20 @@ import nat from "../assets/logonat.svg";
 import DropdownM from "../component/drop_down_menu/dropdownM";
 import { AiOutlineSetting } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
-import Ligne from "../component/tables/ligne_tab/lignedetab";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "../login/login";
+import Table1 from "../component/tables/table/table1/table1";
+import Table2 from "../component/tables/table/table2/table2";
+import Table3 from "../component/tables/table/table3/table3";
 
 function Page_P() {
   const navRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
-
+  //_______________________________________transformation nav bar____________________________________
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setScrolled(!entry.isIntersecting); // true si trigger "entre" dans le nav
+        setScrolled(!entry.isIntersecting);
       },
       { root: null, threshold: 0 }
     );
@@ -27,15 +28,20 @@ function Page_P() {
       if (triggerRef.current) observer.unobserve(triggerRef.current);
     };
   }, []);
+  //------------------------------------------------------------------------------------
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const handleSelect = (category: string, item: string) => {
     setSelectedItem(`${category}: ${item}`);
   };
+  const [title, setTitle] = useState("Bienvenue");
   //---------------------a terminer----------------
-  const renderSelect = () =>{
-    
+  const [modifier, setModifier] = useState(false);
+
+  const clickmodif = () => {
+    setModifier((prev) => !prev);
   };
-//__-----------------------------------------------
+
+  //__-----------------------------------------------
   return (
     <>
       <Background />
@@ -51,19 +57,28 @@ function Page_P() {
             <DropdownM
               name="equipement"
               op={["routeur", "switch", "firewall"]}
-              onSelect={(item) => handleSelect("Equipement", item)}
+              onSelect={(item) => {
+                setTitle(item.toUpperCase());
+                handleSelect("Equipement", item);
+              }}
             />
 
             <DropdownM
               name="scripts"
               op={["routeur", "switch", "firewall"]}
-              onSelect={(item) => handleSelect("Script", item)}
+              onSelect={(item) => {
+                setTitle(item.toUpperCase());
+                handleSelect("Script", item);
+              }}
             />
 
             <DropdownM
               name="vulnérabilité"
               op={["Bab Zeouar", "Oran", "Agence"]}
-              onSelect={(item) => handleSelect("vulnérabilité", item)}
+              onSelect={(item) => {
+                setTitle(item.toUpperCase());
+                handleSelect("vulnérabilité", item);
+              }}
             />
           </div>
           <div
@@ -75,11 +90,37 @@ function Page_P() {
         </nav>
 
         <div className="text">
-          <div ref={triggerRef} style={{ height: "1px" }}></div>Bienvenue
+          <div ref={triggerRef} style={{ height: "1px" }}></div>
+          {title}
         </div>
         <div className="maincontainer">
-            {selectedItem}
-            <Ligne  isnotTitle={false} col={["routeur", "switch", "firewall"]}/><Ligne col={["routeur", "switch", "firewall"]}/>
+          {selectedItem ? (
+            <>
+              <div className="haut_page">
+                <h1>{title}</h1>
+                <div className="modif_rech">
+                  <input type="text" placeholder="rechercher..." />
+                  <button onClick={clickmodif}>
+                    {modifier ? "retour" : "modifier"}
+                  </button>
+                </div>
+              </div>
+              <div className="table">
+                <Table3
+lignes={[
+  ["switch1", "00:1A:C2:7B:00:47"],
+  ["switch1", "00:1A:C2:7B:00:47"],
+  ["switch1", "00:1A:C2:7B:00:47"],
+  ["switch1", "00:1A:C2:7B:00:47"]
+]}
+                  modif={modifier}
+                  
+                />
+              </div>
+            </>
+          ) : (
+            <div>dash boeard a mettre ici</div>
+          )}
         </div>
       </div>
     </>

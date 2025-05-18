@@ -28,12 +28,14 @@ body {
   position: relative;
 
 }
+
 .middlebtn {
    border-radius:38px ; 
   display: flex;
   position: absolute;
   gap: 15px;
   left: 350px;
+  align-self: center;
 }
 .parametre {
   display: flex;
@@ -49,13 +51,72 @@ body {
   justify-content: center;
   align-items: center;
   gap: 30px;
-  font-size: 6rem;
+  font-size: 5rem;
   margin-bottom: 90px;
 }
 
 .maincontainer {
-  padding: 10px;
-  height: 1000px;
+  padding: 2rem;
   background-color: #20202073;
-  border-radius: 80px;
+  border-radius: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.haut_page {
+  
+  display: flex;
+  width: 95%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  
+
+ 
+}
+.modif_rech{
+  display: flex;
+ 
+  justify-content: flex-end;
+  gap: 30px;
+  height: 50px;
+  width: 50%;
+  
+}
+.modif_rech button{
+  width: 30%;
+  border-radius: 34px;
+  border: none;
+  background: linear-gradient(180deg,#3c2154,#613982);
+  font-size: 18px ;
+  color: #AEAEAE;
+}
+.modif_rech button:hover{
+  transform: scale(1.03);
+}
+.modif_rech button:active{
+  transform: scale(1);
+}
+.modif_rech input{
+  width: 50%;
+  outline: none;
+  font-size: 18px ;
+  color: #AEAEAE;
+  background: #525252;
+  border: none;
+  border-radius: 18px;
+  padding: 0px 10px;
+  
+}
+.table{
+    width: 95%;
+    background: #131313;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 10px;
+    padding-bottom: 50px;
+    padding-top: 10px;
+    border-radius: 40px;
+    
 }
