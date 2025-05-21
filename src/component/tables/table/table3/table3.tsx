@@ -24,6 +24,7 @@ function Table3({ lignes, modif }: Props) {
       key={rows.indexOf(row)}
       modif={modif}
       col={row}
+      
       onDelete={() => handleDelete(rows.indexOf(row))}
     ></Ligne>
   ));

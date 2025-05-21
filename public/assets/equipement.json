@@ -1,0 +1,34 @@
+[
+ {
+    "id":"A",
+    "nomSite":"site1"
+ }, 
+ {
+    "id":"B",
+    "nomSite":"site2"
+ },  
+ {
+    "id":"C",
+    "nomSite":"bab ezzouar"
+ }, 
+ {
+    "id":"D",
+    "nomSite":"oran"
+ }, 
+ {
+    "id":"E",
+    "nomSite":"tenes"
+ } ,
+ {
+    "id":"F",
+    "nomSite":"aindefla"
+ } ,
+ {
+    "id":"G",
+    "nomSite":"alger"
+ } ,
+ {
+    "id":"H",
+    "nomSite":"tizi"
+ } 
+]

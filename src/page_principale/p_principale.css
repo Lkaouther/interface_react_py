@@ -98,14 +98,15 @@ body {
   transform: scale(1);
 }
 .modif_rech input{
-  width: 50%;
-  outline: none;
-  font-size: 18px ;
-  color: #AEAEAE;
-  background: #525252;
-  border: none;
-  border-radius: 18px;
-  padding: 0px 10px;
+    width: 50%;
+    padding: 15px;
+    font-size: 18px ;
+    margin: 5px 0px;
+    outline: none;
+    border: none;
+    color: rgb(15, 15, 15);
+    background: #aeaeae;
+    border-radius: 20px;
   
 }
 .table{

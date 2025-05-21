@@ -4,12 +4,12 @@ import { useState } from "react";
 
 interface Props {
   name: string;
-  op: string[];
+  op?: string[];
   onSelect: (value: string) => void;
 }
-function DropdownM({name , op , onSelect }: Props) {
+function DropdownM({name , op=[], onSelect }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-
+ let x=0;
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
@@ -17,7 +17,7 @@ function DropdownM({name , op , onSelect }: Props) {
     onSelect(option)
     setIsOpen(false)
   }
-  const listop = op.map((opt) => <li key={opt} onClick={() => handleSelect(opt)}>{opt} </li> );
+  const listop = op.map((opt) => <li key={"x"+ x++} onClick={() => handleSelect(opt)}>{opt} </li> );
   return (
     <>
       <div className="container_drop">
@@ -29,7 +29,7 @@ function DropdownM({name , op , onSelect }: Props) {
         >
           {name}
         </button>
-        {isOpen && <ul className="dropdown" onMouseOver={()=>setIsOpen(true)} onMouseLeave={toggleDropdown}>{listop}</ul>}
+        {isOpen && op.length > 0  &&<ul className="dropdown" onMouseOver={()=>setIsOpen(true)} onMouseLeave={toggleDropdown}>{listop}</ul>}
       </div>
     </>
   );

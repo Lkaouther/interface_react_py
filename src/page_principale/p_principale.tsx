@@ -4,15 +4,18 @@ import nat from "../assets/logonat.svg";
 import DropdownM from "../component/drop_down_menu/dropdownM";
 import { AiOutlineSetting } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Table1 from "../component/tables/table/table1/table1";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import Equipement from "../page_equipement/equipement";
+import Maincont from "../maincontainer/maincont";
+/*import Table1 from "../component/tables/table/table1/table1";
 import Table2 from "../component/tables/table/table2/table2";
-import Table3 from "../component/tables/table/table3/table3";
-
+import BarreRecherhce from "../component/barrecherche/barrerech";*/
 function Page_P() {
   const navRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [ismain, setismain] = useState(false);
+  const navigate=useNavigate();
   //_______________________________________transformation nav bar____________________________________
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,45 +32,56 @@ function Page_P() {
     };
   }, []);
   //------------------------------------------------------------------------------------
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState("");
   const handleSelect = (category: string, item: string) => {
-    setSelectedItem(`${category}: ${item}`);
+    if(item===""){
+      if(category===""){
+        navigate(`/main`);
+        setismain(true);
+        setSelectedItem(`:`);
+      }else{
+      navigate(`/main/${category}`);
+      setSelectedItem(`${category}:${category}`);
+      setismain(false);
+    }}
+    else{
+    setSelectedItem(`${category}:${item}`);
+    navigate(`/main/${category}/${item}`);
+  setismain(false); }
+    
   };
   const [title, setTitle] = useState("Bienvenue");
   //---------------------a terminer----------------
-  const [modifier, setModifier] = useState(false);
 
-  const clickmodif = () => {
-    setModifier((prev) => !prev);
-  };
 
-  //__-----------------------------------------------
+
+
+  //-------------------------------------------------------------------------------------------------------
   return (
     <>
       <Background />
       <div className="ecran">
         <nav className="navigation">
-          <div className={`logo ${scrolled ? "scrolled" : ""}`} ref={navRef}>
+          <div className={`logo ${scrolled ? "scrolled" : ""}`} onClick={() => {handleSelect("",""); }} >
             <img src={nat} alt="" />
           </div>
           <div
             className={`middlebtn ${scrolled ? "scrolled" : ""}`}
-            ref={navRef}
+            
           >
-            <DropdownM
-              name="equipement"
-              op={["routeur", "switch", "firewall"]}
-              onSelect={(item) => {
-                setTitle(item.toUpperCase());
-                handleSelect("Equipement", item);
-              }}
-            />
+            <button
+          className={`button_dropd`}
+          onClick={() => {handleSelect("equipement",""); setTitle("Equipement");}}
+          name="btn"
+
+
+        >equipement</button>
 
             <DropdownM
               name="scripts"
               op={["routeur", "switch", "firewall"]}
               onSelect={(item) => {
-                setTitle(item.toUpperCase());
+                setTitle("Script");
                 handleSelect("Script", item);
               }}
             />
@@ -76,7 +90,7 @@ function Page_P() {
               name="vulnérabilité"
               op={["Bab Zeouar", "Oran", "Agence"]}
               onSelect={(item) => {
-                setTitle(item.toUpperCase());
+                setTitle("vulnérabilité");
                 handleSelect("vulnérabilité", item);
               }}
             />
@@ -90,37 +104,25 @@ function Page_P() {
         </nav>
 
         <div className="text">
-          <div ref={triggerRef} style={{ height: "1px" }}></div>
+          <div ref={triggerRef} style={{ height: "0.01px" }}></div>
           {title}
         </div>
+
         <div className="maincontainer">
-          {selectedItem ? (
-            <>
-              <div className="haut_page">
-                <h1>{title}</h1>
-                <div className="modif_rech">
-                  <input type="text" placeholder="rechercher..." />
-                  <button onClick={clickmodif}>
-                    {modifier ? "retour" : "modifier"}
-                  </button>
-                </div>
-              </div>
-              <div className="table">
-                <Table3
-lignes={[
-  ["switch1", "00:1A:C2:7B:00:47"],
-  ["switch1", "00:1A:C2:7B:00:47"],
-  ["switch1", "00:1A:C2:7B:00:47"],
-  ["switch1", "00:1A:C2:7B:00:47"]
-]}
-                  modif={modifier}
-                  
-                />
-              </div>
-            </>
-          ) : (
-            <div>dash boeard a mettre ici</div>
-          )}
+          
+          <Routes>
+            <Route path="equipement/*" element={<Equipement />} />
+            <Route path="script/routeur" element={<Maincont title={selectedItem} />} />
+            <Route path="script/switch" element={<Maincont title={selectedItem}/>} />
+            <Route path="script/firewall" element={<Maincont title={selectedItem} />} />
+
+            <Route path="vulnérabilité/Bab Zeouar" element={<Maincont title={selectedItem}/>} />
+            <Route path="vulnérabilité/Oran" element={<Maincont title={selectedItem}/>} />
+            <Route path="vulnérabilité/Agence" element={<Maincont title={selectedItem} />} />
+          </Routes>  
+          {ismain && "le dash board"}
+            
+          
         </div>
       </div>
     </>

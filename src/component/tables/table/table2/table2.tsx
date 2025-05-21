@@ -4,11 +4,12 @@ import { useState } from "react";
 
 interface Props {
   lignes: string[][];
-  modif: boolean;
-  //onSelect: (value: string) => void;
+  modif?: boolean;
+  keys: string[];
+  onSelect: (value: string, id: string) => void;
 }
 
-function Table2({ lignes, modif }: Props) {
+function Table2({ lignes, modif=false,keys ,onSelect}: Props) {
   const [rows, setRows] = useState(lignes);
  
   //-----------------------ajout/sup ligne------ajouter les actions api------------------
@@ -19,11 +20,15 @@ function Table2({ lignes, modif }: Props) {
     setRows((prevRows) => [...prevRows, [id, ip, mac, etat]]);
   };
 //---------------------------------------------------------------------------------------
-  const toLigne = rows.map((row) => (
+  const toLigne = rows.map((row,index) => (
     <Ligne
-      key={rows.indexOf(row)}
+      key={keys[index]}
+      id={keys[index]}
       modif={modif}
       col={row}
+      onSelect={(item, id) => {
+        onSelect(item, id);
+      }}
       onDelete={() => handleDelete(rows.indexOf(row))}
     ></Ligne>
   ));
@@ -32,7 +37,8 @@ function Table2({ lignes, modif }: Props) {
 
   return (
     <>
-       <Ligne col={["ID","ADRESSE MAC","ADRESSE IP","ETAT"]} isnotTitle={false} modif={modif}/>
+       <Ligne key={"titre"}
+      id={"titre"} col={["ID","ADRESSE MAC"]} isnotTitle={false} modif={modif}/>
         {toLigne}
         {modif && (
           <button
