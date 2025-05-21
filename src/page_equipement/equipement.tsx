@@ -17,11 +17,11 @@ function Equipement() {
         <div className="modif_rech">
           <BarreRecherche
           lienjson="/assets/equipement.json"
-            retourner={(site, keysite) => {
+          retourner={(site, keysite) => {
               setLig(site);
               setKeys(keysite);
               console.log(keysite);
-            }}
+          }}
           />
         </div>
       </div>
