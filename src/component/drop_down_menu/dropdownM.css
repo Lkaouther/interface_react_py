@@ -1,12 +1,12 @@
 .button_dropd{
    height: 44px;
-   width: 155px;
    background: transparent;
    color: #AEAEAE;
    border: none;
    border-radius: 34px;
    transition: 0.4s;
     font-size: 18px;
+    padding: 10px;
 
 }
 
@@ -24,10 +24,10 @@
 }
 
 .container_drop{
-  
  position: relative;
  display: flex;
  flex-direction: column;
+width:8rem;
 }
 
 .dropdown{

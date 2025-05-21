@@ -11,9 +11,10 @@ body {
     top: 10px;
   display: flex;
   padding: 10px;
-  align-items: center;
+  justify-content: center;
   justify-content: space-between;
     transition: background-color 0.3s ease;
+    z-index: 100;
 }
 .logo.scrolled{
  display: none;  
@@ -24,18 +25,18 @@ body {
   
 }
 .middlebtn.scrolled  {
-  background-color: #1d1d1d;
+  background-color: #464646;
   position: relative;
-
 }
 
 .middlebtn {
-   border-radius:38px ; 
+  border-radius:38px ; 
   display: flex;
   position: absolute;
-  gap: 15px;
-  left: 350px;
-  align-self: center;
+  gap: 50px;
+  left: 31%;
+  justify-self: center;
+  padding: 5px 10px;
 }
 .parametre {
   display: flex;

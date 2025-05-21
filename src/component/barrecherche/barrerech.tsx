@@ -2,47 +2,37 @@ import { useState, useEffect } from "react";
 
 import "./barrerech.css";
 
-type Equipement = {
-  id: string;
-  nomSite: string;
-};
-interface Props {
-  entrer?:string;
-  lienjson:string;
-  retourner: (sites: string[], id: string[]) => void;
+
+interface Props<T> {
+  data: T[];
+  fieldNom: keyof T; // ex: "nomSite" ou "adresse"
+  fieldId: keyof T;  // ex: "id"
+  entrer?: string;
+  retourner: (noms: string[], ids: string[]) => void;
 }
 
-function BarreRecherche({ lienjson,retourner,entrer="sites" }: Props) {
-  const [allData, setAllData] = useState<Equipement[]>([]);
-
-  const [inputValue, setInputValue] = useState("");
+function BarreRecherche<T>({ data, fieldNom, fieldId, entrer = "éléments", retourner }: Props<T>) {
+ const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    fetch(lienjson)
-      .then((response) => response.json())
-      .then((json: Equipement[]) => {
-        setAllData(json);
-        retourner(
-          json.map((e) => e.nomSite),
-          json.map((e) => e.id)
-        );
-      })
-      .catch((error) => {
-        console.error("Erreur lors du fetch JSON :", error);
-      });
-  }, []);
-
+    // initialiser avec tous les éléments
+    retourner(
+      data.map((e) => String(e[fieldNom])),
+      data.map((e) => String(e[fieldId]))
+    );
+  }, [data]);
+  
   const handleChange = (value: string) => {
     setInputValue(value);
-    const filtered = allData.filter((eq) =>
-      eq.nomSite.toLowerCase().includes(value.toLowerCase())
+  const filtered = data.filter((item) =>
+      String(item[fieldNom]).toLowerCase().includes(value.toLowerCase())
     );
-
     retourner(
-      filtered.map((e) => e.nomSite),
-      filtered.map((e) => e.id)
+      filtered.map((e) => String(e[fieldNom])),
+      filtered.map((e) => String(e[fieldId]))
     );
   };
+  
 
   return (
     <>

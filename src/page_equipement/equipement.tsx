@@ -1,49 +1,95 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BarreRecherche from "../component/barrecherche/barrerech";
 import Table1 from "../component/tables/table/table1/table1";
-import { Route, Routes, useNavigate } from "react-router-dom";
+
+interface AdresseMAC {
+  id: string;
+  mac: string;
+}
+interface Equipement {
+  id: string;
+  nomSite: string;
+  adresseMAC: AdresseMAC[];
+}
 
 function Equipement() {
-  const [titre, setTitre] = useState("Equipement");
+  const [data, setData] = useState<Equipement[]>([]);
   const [lig, setLig] = useState<string[]>([]);
   const [keys, setKeys] = useState<string[]>([]);
-  const navigate = useNavigate();
+  const [titre, setTitre] = useState("Sites");
+const [macData, setMacData] = useState<AdresseMAC[]>([]);
+  // Pour savoir si on est dans la vue site ou mac
+  const [currentView, setCurrentView] = useState<"sites" | "mac">("sites");
 
+  useEffect(() => {
+    fetch("/assets/equipement.json")
+      .then((res) => res.json())
+      .then((json: Equipement[]) => {
+        setData(json);
+        // Affiche tous les sites au départ
+        setLig(json.map((e) => e.nomSite));
+        setKeys(json.map((e) => e.id));
+      });
+  }, []);
+
+  const handleSiteSelect = (nomSite: string, id: string) => {
+    const site = data.find((s) => s.id === id);
+    if (!site) return;
+
+    setTitre(nomSite);
+    setMacData(site.adresseMAC);
+    setLig(site.adresseMAC.map((m) => m.mac));
+    setKeys(site.adresseMAC.map((m) => m.id));
+    setCurrentView("mac");
+  };
+
+  const handleRetourSites = () => {
+    setTitre("Sites");
+    setLig(data.map((e) => e.nomSite));
+    setKeys(data.map((e) => e.id));
+    setCurrentView("sites");
+  };
 
   return (
     <>
       <div className="haut_page">
-        <div style={{fontSize: "3rem"}}>{titre.toUpperCase()}</div>
+        <h1>{titre.toUpperCase()}</h1>
+
         <div className="modif_rech">
-          <BarreRecherche
-          lienjson="/assets/equipement.json"
-          retourner={(site, keysite) => {
-              setLig(site);
-              setKeys(keysite);
-              console.log(keysite);
-          }}
-          />
+          {/* Ne montre la recherche que si on est sur les sites */}
+          {currentView === "mac" && (
+            <button onClick={handleRetourSites}>↩ Retour</button>
+          )}
+       
+            <BarreRecherche
+              data={currentView === "sites" ? (data as any[]): (macData as any[])}
+              fieldNom={currentView === "sites" ? "nomSite" : "mac"}
+              fieldId="id"
+              entrer={currentView === "sites" ? "sites" : "adresses MAC"}
+              retourner={(noms, ids) => {
+                setLig(noms);
+                setKeys(ids);
+                setTitre("Sites");
+              }}
+            />
+          
+
+          
         </div>
       </div>
 
       <div className="table">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Table1
-                keys={keys}
-                lignes={lig}
-                onSelect={(item, id) => {
-                  console.log("id:", id);
-                  navigate(`${item}`);
-                  setTitre(item);
-                }} //id pour envoyé au script
-              />
+        <Table1
+          lignes={lig}
+          keys={keys}
+          onSelect={(nom, id) => {
+            if (currentView === "sites") {
+              handleSiteSelect(nom, id);
+            } else {
+              console.log("adresse mac choisi:",nom,"id:",id);
             }
-          />
-          <Route path="/:id" element={<h1>hhhhhhhhhhhhhhhhhhhhhhhh</h1>} />
-        </Routes>
+          }}
+        />
       </div>
     </>
   );
