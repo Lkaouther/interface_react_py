@@ -1,4 +1,4 @@
-import "./table2.css";
+
 import Ligne from "../../ligne_tab/lignedetab";
 import { useState } from "react";
 

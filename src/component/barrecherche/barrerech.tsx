@@ -8,10 +8,12 @@ interface Props<T> {
   fieldNom: keyof T; // ex: "nomSite" ou "adresse"
   fieldId: keyof T;  // ex: "id"
   entrer?: string;
+  subAr?:string;
+  subRech?: keyof T;
   retourner: (noms: string[], ids: string[]) => void;
 }
 
-function BarreRecherche<T>({ data, fieldNom, fieldId, entrer = "éléments", retourner }: Props<T>) {
+function BarreRecherche<T>({ data, fieldNom, fieldId, entrer = "éléments", retourner,subRech,subAr}: Props<T>) {
  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
@@ -23,15 +25,29 @@ function BarreRecherche<T>({ data, fieldNom, fieldId, entrer = "éléments", ret
   }, [data]);
   
   const handleChange = (value: string) => {
-    setInputValue(value);
-  const filtered = data.filter((item) =>
-      String(item[fieldNom]).toLowerCase().includes(value.toLowerCase())
-    );
-    retourner(
-      filtered.map((e) => String(e[fieldNom])),
-      filtered.map((e) => String(e[fieldId]))
-    );
-  };
+  setInputValue(value);
+  let filtered = data.filter((item) =>
+    String(item[fieldNom]).toLowerCase().includes(value.toLowerCase())
+  );
+
+  if (filtered.length === 0 && subAr && subRech) {
+    filtered = data.filter((item) => {
+      const subArray = (item as any)[subAr];
+      if (Array.isArray(subArray)) {
+        return subArray.some((subItem) =>
+          String(subItem[subRech]).toLowerCase().includes(value.toLowerCase())
+        );
+      }
+      return false;
+    });
+  }
+
+  retourner(
+    filtered.map((e) => String(e[fieldNom])),
+    filtered.map((e) => String(e[fieldId]))
+  );
+};
+
   
 
   return (

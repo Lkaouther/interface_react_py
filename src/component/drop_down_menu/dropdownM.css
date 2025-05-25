@@ -1,12 +1,16 @@
 .button_dropd{
-   height: 44px;
+   height: 100%;
    background: transparent;
    color: #AEAEAE;
    border: none;
    border-radius: 34px;
    transition: 0.4s;
-    font-size: 18px;
-    padding: 10px;
+   font-size: 18px;
+   padding: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+    
 
 }
 
@@ -59,6 +63,7 @@ width:8rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 .dropdown li:hover{
     background: linear-gradient(180deg,#4d286da7,#613982);

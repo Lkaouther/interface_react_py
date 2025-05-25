@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import BarreRecherche from "../component/barrecherche/barrerech";
 import Table1 from "../component/tables/table/table1/table1";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 interface AdresseMAC {
   id: string;
@@ -17,7 +18,7 @@ function Equipement() {
   const [lig, setLig] = useState<string[]>([]);
   const [keys, setKeys] = useState<string[]>([]);
   const [titre, setTitre] = useState("Sites");
-const [macData, setMacData] = useState<AdresseMAC[]>([]);
+  const [macData, setMacData] = useState<AdresseMAC[]>([]);
   // Pour savoir si on est dans la vue site ou mac
   const [currentView, setCurrentView] = useState<"sites" | "mac">("sites");
 
@@ -29,6 +30,8 @@ const [macData, setMacData] = useState<AdresseMAC[]>([]);
         // Affiche tous les sites au départ
         setLig(json.map((e) => e.nomSite));
         setKeys(json.map((e) => e.id));
+        
+
       });
   }, []);
 
@@ -53,28 +56,31 @@ const [macData, setMacData] = useState<AdresseMAC[]>([]);
   return (
     <>
       <div className="haut_page">
-        <h1>{titre.toUpperCase()}</h1>
+        <div style={{display:"flex"}}>
+          {currentView === "mac" && (
+            <button onClick={handleRetourSites} className="button_dropd"style={{fontSize:"32px",marginRight:"5px"}}><AiOutlineArrowLeft /></button>
+          )}
+        <div style={{fontSize: "32px",display: "flex",justifyContent: "center",alignItems: "center"}}>{titre.toUpperCase()}</div>
+        </div>
+         
 
         <div className="modif_rech">
-          {/* Ne montre la recherche que si on est sur les sites */}
-          {currentView === "mac" && (
-            <button onClick={handleRetourSites}>↩ Retour</button>
-          )}
-       
-            <BarreRecherche
-              data={currentView === "sites" ? (data as any[]): (macData as any[])}
-              fieldNom={currentView === "sites" ? "nomSite" : "mac"}
-              fieldId="id"
-              entrer={currentView === "sites" ? "sites" : "adresses MAC"}
-              retourner={(noms, ids) => {
-                setLig(noms);
-                setKeys(ids);
-                setTitre("Sites");
-              }}
-            />
-          
+         
 
-          
+          <BarreRecherche
+            data={
+              currentView === "sites" ? (data as any[]) : (macData as any[])
+            }
+            fieldNom={currentView === "sites" ? "nomSite" : "mac"}
+            fieldId="id"
+            subRech={currentView === "sites" ? "mac" : undefined}
+            subAr={currentView === "sites" ? "adresseMAC" : undefined}
+            entrer={currentView === "sites" ? "sites" : "adresses MAC"}
+            retourner={(noms, ids) => {
+              setLig(noms);
+              setKeys(ids);
+            }}
+          />
         </div>
       </div>
 
@@ -85,10 +91,13 @@ const [macData, setMacData] = useState<AdresseMAC[]>([]);
           onSelect={(nom, id) => {
             if (currentView === "sites") {
               handleSiteSelect(nom, id);
+              
             } else {
-              console.log("adresse mac choisi:",nom,"id:",id);
+              console.log("adresse mac choisi:", nom, "id:", id);
+              console.log("data :",data);
             }
-          }}
+          setTitre(nom);
+        }}
         />
       </div>
     </>

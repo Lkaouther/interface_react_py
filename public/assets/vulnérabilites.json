@@ -1,0 +1,84 @@
+{
+  "vulnerabilites": [
+    {
+      "id": "CVE-2021-20090",
+      "titre": "Accès non autorisé aux interfaces d'administration sur routeurs",
+      "explication": "Des routeurs utilisent une mauvaise validation d'URL, permettant à des attaquants d'accéder aux interfaces d'administration sans authentification.",
+      "remediation": "Mettre à jour le firmware et désactiver l'accès distant.",
+      "equipements_touches": ["Routeurs Arcadyan", "Buffalo", "Modems ISP"],
+      "niveau": "Critique"
+    },
+    {
+      "id": "CVE-2020-1350",
+      "titre": "SIGRed - Exécution de code à distance via DNS sur Windows Server",
+      "explication": "Vulnérabilité wormable dans le service DNS de Windows Server permettant une exécution de code via des requêtes DNS malformées.",
+      "remediation": "Appliquer les correctifs Microsoft immédiatement.",
+      "equipements_touches": ["Windows Server 2008 à 2019"],
+      "niveau": "Critique"
+    },
+    {
+      "id": "CVE-2018-0171",
+      "titre": "RCE via Smart Install Protocol sur Cisco IOS",
+      "explication": "Une faille dans le protocole Smart Install permet l'exécution de code à distance sans authentification.",
+      "remediation": "Désactiver Smart Install et appliquer les correctifs Cisco.",
+      "equipements_touches": ["Switchs et routeurs Cisco IOS"],
+      "niveau": "Élevé"
+    },
+    {
+      "id": "CVE-2017-5638",
+      "titre": "Exécution de code à distance dans Apache Struts",
+      "explication": "Apache Struts permet l'exécution de code via des entêtes HTTP malformés (Content-Type).",
+      "remediation": "Mettre à jour vers la dernière version de Struts.",
+      "equipements_touches": ["Serveurs Apache Struts"],
+      "niveau": "Critique"
+    },
+    {
+      "id": "CVE-2021-34770",
+      "titre": "Commande root à distance via Web UI Cisco IOS XE",
+      "explication": "Injection de commande via l’interface Web UI de Cisco IOS XE sans authentification.",
+      "remediation": "Désactiver Web UI et appliquer les correctifs.",
+      "equipements_touches": ["Cisco Catalyst 9000", "Routeurs IOS XE"],
+      "niveau": "Critique"
+    },
+    {
+      "id": "CVE-2019-0708",
+      "titre": "BlueKeep - Exécution de code via RDP sur Windows",
+      "explication": "Failles RDP (Remote Desktop) sur Windows pouvant être exploitées sans authentification.",
+      "remediation": "Désactiver RDP si inutile et appliquer les mises à jour de sécurité.",
+      "equipements_touches": ["Windows 7", "Windows Server 2008"],
+      "niveau": "Critique"
+    },
+    {
+      "id": "CVE-2020-0601",
+      "titre": "Spoofing de certificats via CryptoAPI de Windows (CurveBall)",
+      "explication": "Un attaquant peut forger des certificats TLS valides exploitant une faille dans la validation ECC de Windows.",
+      "remediation": "Mettre à jour Windows avec les correctifs de sécurité de janvier 2020.",
+      "equipements_touches": ["Windows 10", "Windows Server 2016/2019"],
+      "niveau": "Élevé"
+    },
+    {
+      "id": "CVE-2021-3156",
+      "titre": "Heap Overflow local via sudo (Baron Samedit)",
+      "explication": "Sudo contient un dépassement de mémoire autorisant des droits root à un utilisateur non privilégié.",
+      "remediation": "Mettre à jour sudo vers une version corrigée.",
+      "equipements_touches": ["Linux Ubuntu", "Debian", "CentOS"],
+      "niveau": "Élevé"
+    },
+    {
+      "id": "CVE-2019-11510",
+      "titre": "Lecture arbitraire de fichiers via VPN Pulse Secure",
+      "explication": "Faille dans Pulse Connect Secure permettant à un attaquant d’accéder à des fichiers sensibles sans authentification.",
+      "remediation": "Appliquer les correctifs de sécurité de Pulse Secure.",
+      "equipements_touches": ["VPN Pulse Connect Secure"],
+      "niveau": "Critique"
+    },
+    {
+      "id": "CVE-2014-0160",
+      "titre": "Heartbleed - fuite de mémoire via OpenSSL",
+      "explication": "Une mauvaise gestion du protocole TLS Heartbeat permet la lecture de mémoire sensible par un attaquant.",
+      "remediation": "Mettre à jour OpenSSL vers une version corrigée et révoquer les certificats compromis.",
+      "equipements_touches": ["Serveurs utilisant OpenSSL 1.0.1 à 1.0.1f"],
+      "niveau": "Critique"
+    }
+  ]
+}

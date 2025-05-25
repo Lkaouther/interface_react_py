@@ -5,10 +5,10 @@
     justify-content: space-between;
     justify-self: center;
     padding: 0px 20px;
-    font-size: 18px ;
+    font-size: 20px ;
     margin: 10px 30px;
     border-radius: 50px;
-   
+ 
  }
  .entre_ligne:last-child{ 
 display: none;
@@ -56,16 +56,56 @@ display: none;
 .sans_icon{ 
     display: flex;
     width: 100%;
-    gap: 8%;
+    gap: 5%;
+    
    
 }
 .ligne p{ 
-    font-size: 20px ;
+    display: flex;
     margin-left: 20px;
-    width: 20%;
     text-align: center;
  
  }
+.info-wrapper{ 
+
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    width: 70%;
+   
+ }
+ .info-wrapper p{ 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 0;
+  align-items: center;
+  
+ }
+ .titre_ligne{ 
+
+    display: flex;
+     
+    width: 40%;
+   align-content:flex-start;
+   
+   
+   
+ }
+ .titre_ligne p{ 
+   font-size: 25px;
+  
+   text-align: left;
+ }
+   
+ 
+
+
+
+
+
+
+
 .entre_ligne{ 
    justify-self: center;
    border: 1px #AEAEAE solid;

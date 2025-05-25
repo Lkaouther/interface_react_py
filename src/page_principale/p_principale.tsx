@@ -4,18 +4,26 @@ import nat from "../assets/logonat.svg";
 import DropdownM from "../component/drop_down_menu/dropdownM";
 import { AiOutlineSetting } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import Equipement from "../page_equipement/equipement";
-import Maincont from "../maincontainer/maincont";
+import Vul from "../page_vulnerabilite/vulnerabilite";
 /*import Table1 from "../component/tables/table/table1/table1";
 import Table2 from "../component/tables/table/table2/table2";
 import BarreRecherhce from "../component/barrecherche/barrerech";*/
-function Page_P() {
+
+interface Props {
+  first?:boolean;
+}
+function Page_P({first=false}:Props) {
   const navRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [ismain, setismain] = useState(false);
-  const navigate=useNavigate();
+  const [ismain, setismain] = useState(true);
+  const navigate = useNavigate();
   //_______________________________________transformation nav bar____________________________________
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,63 +42,64 @@ function Page_P() {
   //------------------------------------------------------------------------------------
   const [selectedItem, setSelectedItem] = useState("");
   const handleSelect = (category: string, item: string) => {
-    if(item===""){
-      if(category===""){
+    if (item === "") {
+      if (category === "") {
         navigate(`/main`);
         setismain(true);
         setSelectedItem(`:`);
-      }else{
-      navigate(`/main/${category}`);
-      setSelectedItem(`${category}:${category}`);
+      } else {
+        navigate(`/main/${category}`);
+        setismain(false);
+      }
+    } else {
+      setSelectedItem(`${item}`);
+      navigate(`/main/${category}/${item}`);
       setismain(false);
-    }}
-    else{
-    setSelectedItem(`${category}:${item}`);
-    navigate(`/main/${category}/${item}`);
-  setismain(false); }
-    
+    }
   };
-  const [title, setTitle] = useState("Bienvenue");
+  const [title, setTitle] = useState(first);
   //---------------------a terminer----------------
-
-
-
 
   //-------------------------------------------------------------------------------------------------------
   return (
     <>
       <Background />
       <div className="ecran">
-        <nav className="navigation">
-          <div className={`logo ${scrolled ? "scrolled" : ""}`} onClick={() => {handleSelect("",""); }} >
+        <nav className={`navigation ${scrolled ? "scrolled" : ""}`}>
+          <div
+            className={`logo ${scrolled ? "scrolled" : ""}`}
+            onClick={() => {
+              handleSelect("", "");
+            }}
+          >
             <img src={nat} alt="" />
           </div>
-          <div
-            className={`middlebtn ${scrolled ? "scrolled" : ""}`}
-            
-          >
+          <div className={`middlebtn ${scrolled ? "scrolled" : ""}`}>
             <button
-          className={`button_dropd`}
-          onClick={() => {handleSelect("equipement",""); setTitle("Equipement");}}
-          name="btn"
-
-
-        >equipement</button>
+              className={`button_dropd`}
+              onClick={() => {
+                handleSelect("equipement", "");
+                setTitle(false);
+              }}
+              name="btn"
+            >
+              Equipement
+            </button>
 
             <DropdownM
-              name="scripts"
-              op={["routeur", "switch", "firewall"]}
+              name="Scripts"
+              op={["Routeur", "Switch", "Firewall"]}
               onSelect={(item) => {
-                setTitle("Script");
+                setTitle(false);
                 handleSelect("Script", item);
               }}
             />
 
             <DropdownM
-              name="vulnérabilité"
-              op={["Bab Zeouar", "Oran", "Agence"]}
+              name="Vulnérabilité"
+              op={["Bab Ezzouar", "Oran", "Agence"]}
               onSelect={(item) => {
-                setTitle("vulnérabilité");
+                setTitle(false);
                 handleSelect("vulnérabilité", item);
               }}
             />
@@ -104,25 +113,40 @@ function Page_P() {
         </nav>
 
         <div className="text">
-          <div ref={triggerRef} style={{ height: "0.01px" }}></div>
-          {title}
+          <div ref={triggerRef} style={{ height: "0.001%" }}></div>
+          {title && "BIENVENUE"}
         </div>
 
         <div className="maincontainer">
-          
           <Routes>
-            <Route path="equipement/*" element={<Equipement />} />
-            <Route path="script/routeur" element={<Maincont title={selectedItem} />} />
-            <Route path="script/switch" element={<Maincont title={selectedItem}/>} />
-            <Route path="script/firewall" element={<Maincont title={selectedItem} />} />
+            <Route path="Equipement/*" element={<Equipement />} />
+            <Route
+              path="Ecript/Routeur"
+              element={<Vul title={selectedItem} />}
+            />
+            <Route
+              path="Script/Switch"
+              element={<Vul title={selectedItem} />}
+            />
+            <Route
+              path="Script/Firewall"
+              element={<Vul title={selectedItem} />}
+            />
 
-            <Route path="vulnérabilité/Bab Zeouar" element={<Maincont title={selectedItem}/>} />
-            <Route path="vulnérabilité/Oran" element={<Maincont title={selectedItem}/>} />
-            <Route path="vulnérabilité/Agence" element={<Maincont title={selectedItem} />} />
-          </Routes>  
+            <Route
+              path="Vulnérabilité/Bab_Ezzouar"
+              element={<Vul title={selectedItem} />}
+            />
+            <Route
+              path="Vulnérabilité/Oran"
+              element={<Vul title={selectedItem} />}
+            />
+            <Route
+              path="Vulnérabilité/Agence"
+              element={<Vul title={selectedItem} />}
+            />
+          </Routes>
           {ismain && "le dash board"}
-            
-          
         </div>
       </div>
     </>
