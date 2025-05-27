@@ -1,15 +1,17 @@
 import "./lignedetab.css";
-import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineRight ,AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
+
 
 interface Props {
   id:string;
   col: string[];
   isnotTitle?: boolean;
   modif?: boolean;
-  iconmodif?: boolean;
   alumer?: boolean;
+  eteindre?:boolean;
   onDelete?: () => void;
   tb3?:boolean;
+  tb2?:boolean;
   onSelect?: (value: string,id:string) => void;
 }
 
@@ -17,9 +19,9 @@ function Ligne({
   id,
   col = [],
   isnotTitle = true,
-  modif,
+  modif=true,
   onDelete,
-  iconmodif = false,
+  tb2=false,
   alumer = false,
   tb3=false,
    onSelect = () => {}
@@ -43,34 +45,37 @@ const listop = tb3
   const renderButton = () => {
     if (!modif) {
       return (
-        <AiOutlineRight style={{ color: isnotTitle ? "" : "transparent" }} />
+        isnotTitle &&<AiOutlineRight/>
       );
     }
-
-    if (iconmodif) {
-      return (
-        <button className={`suprim ${isnotTitle ? "" : "title"}`}>
-          modifier
-        </button>
-      );
-    }
+     
 
     if (alumer) {
       return (
-        <button className={`suprim ${isnotTitle ? "" : "title"}`}>
-          allumer
+        
+        isnotTitle &&<>
+        <button className={`suprim ${isnotTitle ? "" : "title"}`}style={{background:"#609e65"}}>
+          {/*<AiOutlineArrowUp />*/  }Allumer
         </button>
+
+        <button className={`suprim ${isnotTitle ? "" : "title"}`}style={{background:"#ad5666",marginLeft:"5px"}}>
+          {/*<AiOutlineArrowDown />*/  }Eteindre
+        </button></>
+        
       );
     }
-    
-    return (
-      <button
+   
+    if (modif) {
+      return (
+        isnotTitle &&<button
         className={`suprim ${isnotTitle ? "" : "title"}`}
         onClick={onDelete}
       >
         supprimer
       </button>
-    );
+      );
+    }
+    return;
   };
   const handleSelect = (option: string,id:string) => {
     onSelect(option,id);
@@ -83,7 +88,7 @@ const listop = tb3
         className={`ligne ${modif ? "modif" : ""}`}
         style={{ pointerEvents: isnotTitle ? "auto" : "none" }}
       >
-        <div className={`sans_icon ${isnotTitle ? "" : "titre"}`} onClick={() => handleSelect(col[0],id)}>{listop}</div>
+        <div className={`sans_icon ${!isnotTitle ? (tb2 ? "titre2" : "titre") : ""}`} onClick={() => handleSelect(col[0],id)}>{listop}</div>
         {renderButton()}
       </div>
       <div className="entre_ligne" />

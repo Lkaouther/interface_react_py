@@ -1,0 +1,41 @@
+
+
+.terminal {
+  background: #353535;
+  border-radius: 20px;
+  height: 250px;
+  width: 50%;
+  margin: 5%;
+  padding: 1rem;
+  color: #f1f1f1;
+  font-family: monospace;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+
+  scrollbar-color: #6d6d6d transparent;
+}
+
+/* Chrome */
+.terminal::-webkit-scrollbar {
+  width: 8px;
+}
+.terminal::-webkit-scrollbar-thumb {
+  background: #6d6d6d;
+  border-radius: 10px;
+}
+.terminal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.input-terminal {
+  background: transparent;
+  border: none;
+  border-top: 1px solid #888;
+  color: white;
+  font-family: monospace;
+  padding: 8px;
+  outline: none;
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import BarreRecherche from "../component/barrecherche/barrerech";
 import Table1 from "../component/tables/table/table1/table1";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import Table2 from "../component/tables/table/table2/table2";
 
 interface AdresseMAC {
   id: string;
@@ -75,7 +76,7 @@ function Equipement() {
             fieldId="id"
             subRech={currentView === "sites" ? "mac" : undefined}
             subAr={currentView === "sites" ? "adresseMAC" : undefined}
-            entrer={currentView === "sites" ? "sites" : "adresses MAC"}
+            entrer={currentView === "sites" ? "sites" : "switch ou ip"}
             retourner={(noms, ids) => {
               setLig(noms);
               setKeys(ids);
@@ -85,7 +86,7 @@ function Equipement() {
       </div>
 
       <div className="table">
-        <Table1
+        {currentView === "sites" ? <Table1
           lignes={lig}
           keys={keys}
           onSelect={(nom, id) => {
@@ -98,7 +99,13 @@ function Equipement() {
             }
           setTitre(nom);
         }}
-        />
+        /> : 
+        <Table2
+          lignes={[["Switch01-01","10.10.10.1"],["Switch01-02","10.10.10.2"],["Switch01-03","10.10.10.3"],["Switch01-04","10.10.10.4"]]}
+          keys={keys}
+          onSelect={(nom, id) => {
+        }}
+        />}
       </div>
     </>
   );

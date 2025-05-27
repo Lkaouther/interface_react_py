@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/main/*" element={<Page_P />} />
+        <Route path="/main/*" element={<Page_P first={true}/>} />
       </Routes>
     </Router>
         

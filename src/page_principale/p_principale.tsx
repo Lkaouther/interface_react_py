@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Equipement from "../page_equipement/equipement";
 import Vul from "../page_vulnerabilite/vulnerabilite";
+import Script from "../page_script/Script";
 /*import Table1 from "../component/tables/table/table1/table1";
 import Table2 from "../component/tables/table/table2/table2";
 import BarreRecherhce from "../component/barrecherche/barrerech";*/
@@ -44,7 +45,7 @@ function Page_P({first=false}:Props) {
   const handleSelect = (category: string, item: string) => {
     if (item === "") {
       if (category === "") {
-        navigate(`/main`);
+        navigate(`/main`);//CHANGER A DASHBORD POUR NE PA VOIR LE BIENVENUE 
         setismain(true);
         setSelectedItem(`:`);
       } else {
@@ -57,7 +58,7 @@ function Page_P({first=false}:Props) {
       setismain(false);
     }
   };
-  const [title, setTitle] = useState(first);
+  const [title, setTitle] = useState(first&&"BIENVENUE");
   //---------------------a terminer----------------
 
   //-------------------------------------------------------------------------------------------------------
@@ -114,27 +115,27 @@ function Page_P({first=false}:Props) {
 
         <div className="text">
           <div ref={triggerRef} style={{ height: "0.001%" }}></div>
-          {title && "BIENVENUE"}
+          {title}
         </div>
 
         <div className="maincontainer">
           <Routes>
             <Route path="Equipement/*" element={<Equipement />} />
             <Route
-              path="Ecript/Routeur"
-              element={<Vul title={selectedItem} />}
+              path="Script/Routeur"
+              element={<Script/>}
             />
             <Route
               path="Script/Switch"
-              element={<Vul title={selectedItem} />}
+              element={<Script  />}
             />
             <Route
               path="Script/Firewall"
-              element={<Vul title={selectedItem} />}
+              element={<Script />}
             />
 
             <Route
-              path="Vulnérabilité/Bab_Ezzouar"
+              path="Vulnérabilité/Bab Ezzouar"
               element={<Vul title={selectedItem} />}
             />
             <Route

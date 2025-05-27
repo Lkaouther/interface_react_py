@@ -1,0 +1,26 @@
+#titre_text{
+ 
+ display: flex;
+ align-self: flex-start;
+ font-size: 23px;
+ margin-top: 20px;
+ margin-left: 50px;
+}
+.button_apply{
+ font-size: 23px;
+ width: 40%;
+    color:#AEAEAE ;
+    padding: 10px;
+    background: linear-gradient(180deg,#3c2154,#613982);
+    border: none;
+    border-radius:30px; 
+   
+    margin: 50px;
+    
+}
+.button_apply:hover{
+ transform: scale(1.03);
+}
+.button_apply:active{
+ transform: scale(1);
+}

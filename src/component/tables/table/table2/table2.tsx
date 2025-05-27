@@ -24,8 +24,9 @@ function Table2({ lignes, modif=false,keys ,onSelect}: Props) {
     <Ligne
       key={keys[index]}
       id={keys[index]}
-      modif={modif}
+      tb2={true}
       col={row}
+      alumer={true}
       onSelect={(item, id) => {
         onSelect(item, id);
       }}
@@ -38,7 +39,7 @@ function Table2({ lignes, modif=false,keys ,onSelect}: Props) {
   return (
     <>
        <Ligne key={"titre"}
-      id={"titre"} col={["ID","ADRESSE MAC"]} isnotTitle={false} modif={modif}/>
+      id={"titre"} col={["HOST NAME","ADRESSE IP"]} isnotTitle={false} tb2={true}/>
         {toLigne}
         {modif && (
           <button
