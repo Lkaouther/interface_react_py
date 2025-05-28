@@ -88,7 +88,7 @@ function Script() {
         </div>
 
         <div className="modif_rech">
-          <input type="text" placeholder="cherchez dans ce script.." />
+          <input type="text" placeholder="cherchez dans ce script.." />{/*remplacer le input par barre rech */}
           <button onClick={clickmodif}>
             {modifier ? "retour" : "modifier"}
           </button>
