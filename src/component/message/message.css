@@ -1,0 +1,47 @@
+.pop_up{
+ background: #505050;
+ border-radius: 20px;
+ display: flex;
+ flex-direction: column;
+ width: 50%;
+align-items: center;
+position:fixed;
+top: 30%;
+}
+.pop_up.non{
+ background: #ff4e4e;
+ color: #333333;
+ 
+}
+.pop_up button{
+color: #aeaeae;
+align-self: flex-end;
+font-size: 50px;
+position: relative;
+top: 10px;
+right: 10px;
+background: none;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 60px;
+padding: 0;
+
+border: none;
+}
+.pop_up.non button{
+color: #333333;
+
+}
+.pop_up button:hover{
+transform: scale(1.08);
+}
+
+.pop_up p{
+width: 75%;
+font-size: 26px;
+text-align: center;
+justify-self: center;
+margin-bottom: 100px;
+
+}

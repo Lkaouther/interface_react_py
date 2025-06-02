@@ -3,6 +3,7 @@ import BarreRecherche from "../component/barrecherche/barrerech";
 import Table1 from "../component/tables/table/table1/table1";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Table2 from "../component/tables/table/table2/table2";
+import Message from "../component/message/message";
 
 interface AdresseMAC {
   id: string;
@@ -103,10 +104,13 @@ function Equipement() {
         <Table2
           lignes={[["Switch01-01","10.10.10.1"],["Switch01-02","10.10.10.2"],["Switch01-03","10.10.10.3"],["Switch01-04","10.10.10.4"]]}
           keys={keys}
-          onSelect={(nom, id) => {
+          onSelect={(nom, id) => { 
         }}
         />}
       </div>
+      <Message msg="bonjour 
+      loremnkjrnkjvjvjejkvjkebvkbewkj vbhwbejvkbwjebjkv bwekvhbwehmbvhwbvkhbek rhvbhkbehkbkwebkv
+      bfbewkjkevb" />
     </>
   );
 }

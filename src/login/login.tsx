@@ -10,61 +10,98 @@ function Login() {
   const [sessionblk, setSessionblk] = useState(false);
   const [attempts, setAttempts] = useState(0);
   const [error, setError] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isemptyP, setisemptyP] = useState(false);
-  const [isemptyU, setisemptyU] = useState(false);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isemptyP, setisemptyP] = useState<boolean>(false);
+  const [isemptyU, setisemptyU] = useState<boolean>(false);
   const underlineRef1 = useRef<HTMLDivElement>(null);
   const underlineRef2 = useRef<HTMLDivElement>(null);
   const MAX_ATTEMPTS = 3;
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+if (username === "" && password === "") {
+  if (username === "") {
+    setisemptyU(true);
+    
+  }
+  if (password === "") {
+    setisemptyP(true);
+   
+  }
+  const underline1 = underlineRef1.current;
+        const underline2 = underlineRef2.current;
+        if (underline1) {
+          underline1.classList.remove("faux");
+          void underline1.offsetWidth;
+          underline1.classList.add("faux");
+        }
+        if (underline2) {
+          underline2.classList.remove("faux");
+          void underline2.offsetWidth;
+          underline2.classList.add("faux");
+        }
 
-    // Simule une validation
-    const validUsername = "admin";
-    const validPassword = "admin";
+  return;
+}
+  try {
+    const response = await fetch("http://localhost:8000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
 
-    if (username === validUsername && password === validPassword) {
+    const data = await response.json();
+    // data.is_valid est un booléen qui indique si les identifiants sont valides
+    // data.access_token est le token d'accès si les identifiants sont valides
+    // data.role est le rôle de l'utilisateur (par exemple, "admin", "user", etc.)
+
+    if (data.is_valid) {
+      // succès : stocker le token si nécessaire
+      localStorage.setItem("token", data.access_token);
       navigate("/main");
     } else {
-      if (username === "") {
-        setisemptyU(true);
-      }
-      if (password === "") {
-        setisemptyP(true);
-      }
+      // identifiants invalides
       const underline1 = underlineRef1.current;
-      const underline2 = underlineRef2.current;
-      if (underline1 && underline2) {
-        underline1.classList.remove("faux");
-        void underline1.offsetWidth; // force reflow
-        underline1.classList.add("faux");
+        const underline2 = underlineRef2.current;
+        if (underline1) {
+          underline1.classList.remove("faux");
+          void underline1.offsetWidth;
+          underline1.classList.add("faux");
+        }
+        if (underline2) {
+          underline2.classList.remove("faux");
+          void underline2.offsetWidth;
+          underline2.classList.add("faux");
+        }
 
-        underline2.classList.remove("faux");
-        void underline2.offsetWidth; // force reflow
-        underline2.classList.add("faux");
-      }
-      setError(true);
       const newAttempts = attempts + 1;
       setAttempts(newAttempts);
+      setError(true);
       if (newAttempts >= MAX_ATTEMPTS) {
         setSessionblk(true);
       }
     }
-  };
+  } catch (error) {
+    console.error("Erreur de connexion :", error);
+    setError(true);
+  }
+};
 
   useEffect(() => {
     if (sessionblk) {
       const timer = setTimeout(() => {
         setError(false);
         setSessionblk(false);
-        setAttempts(0); // reset tentatives
-      }, 10000); // 10 secondes
+        setAttempts(0);
+      }, 10000);
 
       return () => clearTimeout(timer);
     }
   }, [sessionblk]);
+
   return (
     <>
       <Background />
@@ -73,7 +110,7 @@ function Login() {
       ) : (
         <>
           <div id="logo_nat2">
-            <img src={nat} alt="" />
+            <img src={nat} alt="Logo" />
           </div>
           <form onSubmit={handleLogin}>
             <div className="container">
@@ -88,12 +125,11 @@ function Login() {
                     onChange={(e) => setUsername(e.target.value)}
                   />
                   <div ref={underlineRef1} className="underline" />
-                  {error && (
-                    <label>
-                      {isemptyU
-                        ? "Ce champ est obligatoire*"
-                        : "Identifant incorrect"}
-                    </label>
+                  {isemptyU && (
+                    <label className="error-label">Ce champ est obligatoire*</label>
+                  )}
+                  {!isemptyU && error && (
+                    <label className="error-label">Identifiant incorrect</label>
                   )}
                 </div>
                 <div className="input">
@@ -105,12 +141,11 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <div ref={underlineRef2} className="underline" />
-                  {error && (
-                    <label>
-                      {isemptyP
-                        ? "Ce champ est obligatoire*"
-                        : "Mot de passe incorrect"}
-                    </label>
+                  {isemptyP && (
+                    <label className="error-label">Ce champ est obligatoire*</label>
+                  )}
+                  {!isemptyP && error && (
+                    <label className="error-label">Mot de passe incorrect</label>
                   )}
                 </div>
               </div>

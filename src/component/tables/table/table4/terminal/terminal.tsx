@@ -1,4 +1,3 @@
-// component/terminal/Terminal.tsx
 import React, { useState } from 'react';
 import "./terminal.css";
 

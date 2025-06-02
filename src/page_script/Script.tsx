@@ -6,14 +6,14 @@ import Table2 from "../component/tables/table/table2/table2";
 import Terminal from "../component/tables/table/table4/terminal/terminal";
 import PageScript from "../component/tables/table/table4/table4";
 
-interface AdresseMAC {
-  id: string;
-  mac: string;
+interface Script {
+  contenu: string;//le contenu du script
+  vulCorrigé: string[];
 }
 interface Equipement {
-  id: string;
+  id: string;//type de l'equipement ex:	Cisco ASR, Juniper MX
   nomSite: string;
-  adresseMAC: AdresseMAC[];
+  adresseMAC: Script[];
 }
 
 function Script() {
@@ -22,9 +22,9 @@ function Script() {
   const [lig, setLig] = useState<string[]>([]);
   const [keys, setKeys] = useState<string[]>([]);
   const [titre, setTitre] = useState("Switchs");
-  const [macData, setMacData] = useState<AdresseMAC[]>([]);
+
   // Pour savoir si on est dans la vue site ou mac
-  const [currentView, setCurrentView] = useState<"switchs" | "mac" | "script">(
+  const [currentView, setCurrentView] = useState<"switchs" | "switchSpe" | "script">(
     "switchs"
   );
 
@@ -42,12 +42,8 @@ function Script() {
   const handleswitchelect = (nomSite: string, id: string) => {
     const site = data.find((s) => s.id === id);
     if (!site) return;
-
-    setTitre(nomSite);
-    setMacData(site.adresseMAC);
-    setLig(site.adresseMAC.map((m) => m.mac));
-    setKeys(site.adresseMAC.map((m) => m.id));
-    setCurrentView("mac");
+    setCurrentView("switchSpe");
+   
   };
 
   const handleRetourswitch = () => {
@@ -56,8 +52,8 @@ function Script() {
     setKeys(data.map((e) => e.id));
     setCurrentView("switchs");
     switch(currentView){
-    case "mac": setCurrentView("switchs");break;
-    case "script": setCurrentView("mac");break;
+    case "switchSpe": setCurrentView("switchs");break;
+    case "script": setCurrentView("switchSpe");break;
   }
   };
 
@@ -117,7 +113,7 @@ function Script() {
             />
           )}
 
-          {currentView === "mac" && (
+          {currentView === "switchSpe" && (
             <Table1
               lignes={[
                 "script1",

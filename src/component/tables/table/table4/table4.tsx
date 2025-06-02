@@ -29,7 +29,7 @@ function PageScript() {
       <div id="titre_text">Aperçu sur le script:</div>
       <Terminal
         script={script}
-        onApply={() => console.log("Script exécuté")}
+        onApply={() => <div className="message"></div>}
       />
        <div className="entre_ligne" />
       

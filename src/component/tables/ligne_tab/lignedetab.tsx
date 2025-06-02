@@ -19,7 +19,7 @@ function Ligne({
   id,
   col = [],
   isnotTitle = true,
-  modif=true,
+  modif=false,
   onDelete,
   tb2=false,
   alumer = false,
@@ -43,18 +43,15 @@ const listop = tb3
 
   
   const renderButton = () => {
-    if (!modif) {
-      return (
-        isnotTitle &&<AiOutlineRight/>
-      );
-    }
+   
      
 
     if (alumer) {
+      // ajouter 
       return (
         
-        isnotTitle &&<>
-        <button className={`suprim ${isnotTitle ? "" : "title"}`}style={{background:"#609e65"}}>
+        <>
+        <button className={`suprim ${alumer ? "" : "title"}`}style={{background:"#609e65"}} >
           {/*<AiOutlineArrowUp />*/  }Allumer
         </button>
 
@@ -64,7 +61,11 @@ const listop = tb3
         
       );
     }
-   
+    if (!modif) {
+      return (
+        isnotTitle &&<AiOutlineRight/>
+      );
+    }
     if (modif) {
       return (
         isnotTitle &&<button

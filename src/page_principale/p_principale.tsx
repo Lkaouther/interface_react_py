@@ -12,6 +12,8 @@ import {
 import Equipement from "../page_equipement/equipement";
 import Vul from "../page_vulnerabilite/vulnerabilite";
 import Script from "../page_script/Script";
+import Sidebar from "../component/side_bare_param/sideBarre";
+import DashboardCharts from "../component/dashboard";
 /*import Table1 from "../component/tables/table/table1/table1";
 import Table2 from "../component/tables/table/table2/table2";
 import BarreRecherhce from "../component/barrecherche/barrerech";*/
@@ -25,6 +27,7 @@ function Page_P({first=false}:Props) {
   const [scrolled, setScrolled] = useState(false);
   const [ismain, setismain] = useState(true);
   const navigate = useNavigate();
+  const [showSidebar, setShowSidebar] = useState(false);
   //_______________________________________transformation nav bar____________________________________
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -108,10 +111,12 @@ function Page_P({first=false}:Props) {
           <div
             className={`parametre ${scrolled ? "scrolled" : ""}`}
             ref={navRef}
+            onClick={() => setShowSidebar(true)} 
           >
             <AiOutlineSetting />
           </div>
         </nav>
+{showSidebar && <Sidebar onClose={() => setShowSidebar(false)} />}
 
         <div className="text">
           <div ref={triggerRef} style={{ height: "0.001%" }}></div>
@@ -147,7 +152,7 @@ function Page_P({first=false}:Props) {
               element={<Vul title={selectedItem} />}
             />
           </Routes>
-          {ismain && "le dash board"}
+          {ismain && <DashboardCharts/>}
         </div>
       </div>
     </>
